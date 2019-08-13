@@ -1,7 +1,56 @@
 .homepage {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px 80px;
+  justify-content: space-between;
+  padding: 20px 5px;
+  height: 80vh;
 }
 
+.homepageBottomRow{
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  height: 20%;
+}
+
+.homepageBottomRow > div{
+  margin: 0em 1em;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.homepageBottomRow > div > p{
+  width: 80%;
+  margin-bottom: 0px;
+  // align-self: flex-start;
+}
+
+.homepageBottomRow > div > a {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.homepageBottomRow > div:last-child > a {
+  justify-content: flex-start;
+}
+
+.homepageBottomRow > div > a > button{
+  width: 70%;
+}
+
+.homepageTitle{
+  font-size: 8em;
+}
+
+a{
+  display: flex;
+  justify-content: center;
+}
+
+.homepageTitleWrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+}
