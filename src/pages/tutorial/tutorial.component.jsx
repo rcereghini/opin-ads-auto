@@ -1,17 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { auth, firestore } from '../../firebase/firebase.utils'
+
+import TutorialPageOne from './pages/TutorialPageOne/tutorial-one.component'
+import TutorialPageTwo from './pages/TutorialPageTwo/tutorial-two.component'
 
 import './tutorial.styles.scss'
 
-const TutorialPage = () => (
-    <div>
-        <h2 style={{textAlign: 'center', position: 'absolute', top: 0, width: '100%'}}>Let's Get Started - 1/5</h2>
-        <h1 style={{marginTop: '5em'}}>How would you like to receive your leads?</h1>
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginTop: '4em', marginLeft: '2em'}}>
-            <p className='receiveMethodButtons'>Text</p>
-            <p className='receiveMethodButtons'>Email</p>
-            <p className='receiveMethodButtons'>Notification</p>
-        </div>
-    </div>
-);
+class TutorialPage extends Component{
+    
+    constructor(){
+        super();
+
+        this.state = {
+            tutorialCurrentPage: 0
+        }
+    }
+
+    componentDidMount(){
+        let componentScope = this;
+
+        let { uid } = auth.currentUser;
+        let userRef = firestore.collection("users").doc(uid);
+        let currentPage;
+
+        userRef.onSnapshot(function(doc){
+            let userData = doc.data();
+            componentScope.setState({
+                tutorialCurrentPage: userData.tutorialCurrentPage
+            })
+        })
+
+        this.setState({
+            tutorialCurrentPage: currentPage
+        })
+    }
+
+    render(){
+        switch(this.state.tutorialCurrentPage){
+            case 1: 
+                return <TutorialPageOne></TutorialPageOne>
+                break;
+            case 2: 
+                return <TutorialPageTwo></TutorialPageTwo>
+                break;
+            default: 
+                return <span></span>
+                break;
+        }
+    }
+}
 
 export default TutorialPage;

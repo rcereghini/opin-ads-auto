@@ -21,6 +21,9 @@
     color: black;
     border: 1px solid black;
   }
+  &:disabled {
+    background-color: lightgrey;
+  }
 
   &.google-sign-in{
     background-color: #4285f4;

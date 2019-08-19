@@ -49,7 +49,7 @@ class App extends React.Component{
           <p style={{ fontSize: '24px' }} onClick={() => auth.signOut()}>{this.props.currentUser ? 'Logout' : ''}</p>
         </div>
         <Switch>
-          <Route exact path='/' component={this.props.currentUser ? TutorialPage : HomePage} /> 
+          <Route exact path='/' render={() => this.props.currentUser ? <TutorialPage/> : <HomePage/>}/> 
           <Route exact path='/getstarted' component={GetStartedInfo} />'
           <Route exact path='/shop' component={ShopPage} /> 
           <Route exact exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<SignInOnlyPage />)} /> 

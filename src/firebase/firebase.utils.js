@@ -32,6 +32,8 @@ const config = {
           displayName,
           email,
           createdAt,
+          tutorialCompleted: false,
+          tutorialCurrentPage: 1,
           ...additionalData
         })
       } catch (error) {
