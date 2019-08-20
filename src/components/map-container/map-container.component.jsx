@@ -49,6 +49,7 @@ export class MapContainer extends Component {
       let lng = c.latLng.lng();
 
       let newMarkerLoc = this.state.markerLocations;
+      if(newMarkerLoc.length >= 5) newMarkerLoc.shift();
       newMarkerLoc.push([lat, lng])
 
       this.setState({
@@ -69,7 +70,6 @@ export class MapContainer extends Component {
               >
                 {
                     this.state.markerLocations.map((markerLoc, i) => {
-                        console.log('markerLoc', markerLoc)
                         return (
                             <Marker key={i} onClick={this.onMarkerClick} name={i} position={{lat: markerLoc[0], lng: markerLoc[1]}}
                             />
