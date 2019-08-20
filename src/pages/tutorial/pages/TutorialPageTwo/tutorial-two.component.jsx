@@ -28,7 +28,7 @@ class TutorialPageTwo extends Component{
                     onClick: () => console.log('potato!'),
                     position: {lat: 37.778519, lng: -122.405640}
                 }
-            ]
+            ],
         }
     }
 
@@ -46,6 +46,7 @@ class TutorialPageTwo extends Component{
     
             var typed = new Typed("#questionTitle", options);
     }
+
 
     handleSubmit = async event => {
         event.preventDefault();
@@ -76,9 +77,9 @@ class TutorialPageTwo extends Component{
 
         return (
                 <div>
-                    <h1 id='questionTitle' style={{marginTop: '5em'}}></h1>
+                    <h1 id='questionTitle' style={{marginTop: '3em'}}></h1>
                     <div className='mapContainer'>
-                        <MapContainer mapStyles={{ width: '80vw', height: '50vh'}} markers={this.state.markers} zoom={10} initialCenter={this.state.initialCenter} center={this.state.initialCenter}/>
+                        <MapContainer mapStyles={{ width: '40vw', height: '50vh'}} markers={this.state.markers} zoom={10} initialCenter={this.state.initialCenter} center={this.state.initialCenter}/>
                     </div>
                         <button onClick={this.handleCurrentPositionClick}>Current Position</button>
                 </div>
