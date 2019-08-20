@@ -81,7 +81,7 @@ class TutorialPageTwo extends Component{
                     <div className='mapContainer'>
                         <MapContainer mapStyles={{ width: '40vw', height: '50vh'}} markers={this.state.markers} zoom={10} initialCenter={this.state.initialCenter} center={this.state.initialCenter}/>
                     </div>
-                        <button onClick={this.handleCurrentPositionClick}>Current Position</button>
+                        {/* <button style={{ marginTop: '5em'}} onClick={this.handleCurrentPositionClick}>Current Position</button> */}
                 </div>
             );
     }

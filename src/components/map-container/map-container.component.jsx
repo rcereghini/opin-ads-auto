@@ -59,38 +59,49 @@ export class MapContainer extends Component {
 
   render() {
     return (
-       <Map   google={this.props.google}
-              zoom={10}
-              onClick={this.onMapClick}
-              className='map'
-              initialCenter={{
-               lat: 33.373332,
-               lng: -111.940023
-              }}
-              >
-                {
-                    this.state.markerLocations.map((markerLoc, i) => {
-                        return (
-                            <Marker key={i} onClick={this.onMarkerClick} name={i} position={{lat: markerLoc[0], lng: markerLoc[1]}}
-                            />
-                        )
-                    })
-                }
-                 {/* <Marker
-                    onClick={this.onMarkerClick}
-                    name={'Kiwanis Dojo'}
-                /> */}
-                <InfoWindow
-                    marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}
-                    onClose={this.onClose}
+      <div>
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+          <div className='pinBox'>
+            <p>Pin 1</p>
+            <p>Pin 2</p>
+            <p>Pin 3</p>
+            <p>Pin 4</p>
+            <p>Pin 5</p>
+          </div>
+        </div>
+        <Map   google={this.props.google}
+                zoom={10}
+                onClick={this.onMapClick}
+                className='map'
+                initialCenter={{
+                lat: 33.373332,
+                lng: -111.940023
+                }}
                 >
-                    <div>
-                        <h4 style={{ textAlign: 'center' }}>{this.state.selectedPlace.name + ' miles'}</h4>
-                        <input type="range" min="5" max="15" value="10" className="slider"></input>
-                    </div>
-                </InfoWindow>
-              </Map>
+                  {
+                      this.state.markerLocations.map((markerLoc, i) => {
+                          return (
+                              <Marker key={i} onClick={this.onMarkerClick} name={i} position={{lat: markerLoc[0], lng: markerLoc[1]}}
+                              />
+                          )
+                      })
+                  }
+                  {/* <Marker
+                      onClick={this.onMarkerClick}
+                      name={'Kiwanis Dojo'}
+                  /> */}
+                  <InfoWindow
+                      marker={this.state.activeMarker}
+                      visible={this.state.showingInfoWindow}
+                      onClose={this.onClose}
+                  >
+                      <div>
+                          <h4 style={{ textAlign: 'center' }}>{this.state.selectedPlace.name + ' miles'}</h4>
+                          <input type="range" min="5" max="15" value="10" className="slider"></input>
+                      </div>
+                  </InfoWindow>
+                </Map>
+      </div>
     );
   }
 }
