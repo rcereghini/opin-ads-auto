@@ -216,7 +216,7 @@ export class MapContainer extends Component {
           <div className='pinBox'>
             {
               pinBoxes.map((pinSlot, i) => {
-                return <p key={i} onClick={() => this.onPinBoxClick(pinSlot)} style={this.state.pinBox[pinBoxes[i]] ? {backgroundColor: 'blue'} : null}>Pin {i+1}</p>
+                return <p key={i} onClick={() => this.onPinBoxClick(pinSlot)} style={this.state.pinBox[pinBoxes[i]] ? {backgroundColor: 'black', color: 'white'} : null}>Pin {i+1}</p>
               })
             }
           </div>
