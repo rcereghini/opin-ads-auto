@@ -19,16 +19,6 @@ class TutorialPageTwo extends Component{
                 lat: 43.3349874,
                 lng: -111.91664639999999
             },
-            markers: [
-                {
-                    onClick: () => console.log('cactus!'),
-                    name: 'Kenyatta International Convention Centre'
-                },
-                {
-                    onClick: () => console.log('potato!'),
-                    position: {lat: 37.778519, lng: -122.405640}
-                }
-            ],
         }
     }
 
