@@ -234,7 +234,7 @@ export class MapContainer extends Component {
           <div className='pinBox'>
             {
               pinBoxes.map((pinSlot, i) => {
-                return <div className='cursor-pointer' key={i} onMouseEnter={() => this.onPinBoxEnter(pinSlot)} onMouseLeave={() => this.onPinBoxLeave(pinSlot)} onClick={() => this.onPinBoxClick(pinSlot)} style={this.state.pinBox[pinBoxes[i]] ? {backgroundColor: '#EA4335', color: 'white'} : {display: 'none'}}><span><i class="material-icons">
+                return <div className='cursor-pointer' key={i} onMouseEnter={() => this.onPinBoxEnter(pinSlot)} onMouseLeave={() => this.onPinBoxLeave(pinSlot)} onClick={() => this.onPinBoxClick(pinSlot)} style={this.state.pinBox[pinBoxes[i]] ? {backgroundColor: '#EA4335', color: 'white'} : {backgroundColor: 'lightgrey', color: 'grey', border: '2px solid grey'}}><span><i class="material-icons">
                 place
                 </i></span></div>
               })
