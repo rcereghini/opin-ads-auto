@@ -7,6 +7,7 @@
     
     display: grid;
     // width: 45vw;
+    height: 80px;
     margin-right: 1.337vw;
     grid-template-columns: repeat(5, 1fr)
 }
@@ -21,4 +22,8 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+}
+
+.pinBox:hover{
+    cursor: pointer;
 }

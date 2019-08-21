@@ -3,8 +3,6 @@ import { Map, InfoWindow, GoogleApiWrapper, Marker, Circle } from 'google-maps-r
 
 import './map-container.styles.scss'
 
-console.log('circle ===>', Circle)
-
 export class MapContainer extends Component {
 
   constructor(){
@@ -16,6 +14,7 @@ export class MapContainer extends Component {
           currentMarker: null,
           selectedPlace: {},
           markerLocations: [],
+          sliderValue: 10,
           pinBox: {
             one: null,
             two: null,
@@ -27,8 +26,7 @@ export class MapContainer extends Component {
   }
 
   componentDidMount(){
-    console.log('hi')
-    console.log('the component ===>', this)
+
   }
 
   onMarkerClick = (props, marker, e) => {
@@ -75,7 +73,6 @@ export class MapContainer extends Component {
         })
   
         newMarkerLoc = [lat, lng, circle]
-        console.log('newMarkerLoc ===>', newMarkerLoc)
       }
 
       if(!this.state.pinBox.one){
@@ -138,11 +135,26 @@ export class MapContainer extends Component {
       }
   }
 
+  handleSliderChange = (event) => {
+    this.setState({value: event.target.value});
+  }
+
+  onPinBoxEnter = (box, e) => {
+    if(this.state.pinBox[box])
+      this.state.pinBox[box][2].setRadius(this.state.pinBox[box][2].radius + 1337)
+  }
+
+  onPinBoxLeave = (box, e) => {
+    if(this.state.pinBox[box])
+        this.state.pinBox[box][2].setRadius(this.state.pinBox[box][2].radius - 1337)
+  }
+
   onPinBoxClick = (box) => {
     console.log('box', box)
     console.log('state', this.state)
     switch(box){
       case 'one':
+      if(this.state.pinBox.one)
        this.state.pinBox.one[2].setMap(null)
         this.setState({
           pinBox: {
@@ -155,6 +167,7 @@ export class MapContainer extends Component {
         })
         break;
       case 'two':
+          if(this.state.pinBox.two)
           this.state.pinBox.two[2].setMap(null)
           this.setState({
             pinBox: {
@@ -167,6 +180,7 @@ export class MapContainer extends Component {
           })
           break;
         case 'three':
+            if(this.state.pinBox.three)
             this.state.pinBox.three[2].setMap(null)
             this.setState({
               pinBox: {
@@ -179,6 +193,7 @@ export class MapContainer extends Component {
             })
           break;
         case 'four':
+            if(this.state.pinBox.four)
             this.state.pinBox.four[2].setMap(null)
             this.setState({
               pinBox: {
@@ -191,6 +206,7 @@ export class MapContainer extends Component {
             })
           break;
         case 'five':
+            if(this.state.pinBox.five)
             this.state.pinBox.five[2].setMap(null)
             this.setState({
               pinBox: {
@@ -206,6 +222,8 @@ export class MapContainer extends Component {
    
   }
 
+ 
+
   render() {
     
     let pinBoxes = Object.getOwnPropertyNames(this.state.pinBox)
@@ -216,7 +234,7 @@ export class MapContainer extends Component {
           <div className='pinBox'>
             {
               pinBoxes.map((pinSlot, i) => {
-                return <p key={i} onClick={() => this.onPinBoxClick(pinSlot)} style={this.state.pinBox[pinBoxes[i]] ? {backgroundColor: 'black', color: 'white'} : null}>Pin {i+1}</p>
+                return <p className='cursor-pointer' key={i} onMouseEnter={() => this.onPinBoxEnter(pinSlot)} onMouseLeave={() => this.onPinBoxLeave(pinSlot)} onClick={() => this.onPinBoxClick(pinSlot)} style={this.state.pinBox[pinBoxes[i]] ? {backgroundColor: 'black', color: 'white'} : {display: 'none'}}>Pin {i+1}</p>
               })
             }
           </div>
@@ -238,16 +256,16 @@ export class MapContainer extends Component {
                   
 
                  
-                              <InfoWindow
+                              {/* <InfoWindow
                       marker={this.state.activeMarker}
                       visible={this.state.showingInfoWindow}
                       onClose={this.onClose}
                   >
                       <div>
                           <h4 style={{ textAlign: 'center' }}>{this.state.selectedPlace.name + ' miles'}</h4>
-                          <input type="range" min="5" max="15" value="10" className="slider"></input>
+                          <p id='testButton'>Click</p>
                       </div>
-                  </InfoWindow>
+                  </InfoWindow> */}
                 </Map>
       </div>
     );
