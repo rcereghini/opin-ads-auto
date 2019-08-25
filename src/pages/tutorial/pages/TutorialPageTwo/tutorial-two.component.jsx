@@ -65,6 +65,26 @@ class TutorialPageTwo extends Component {
     });
   };
 
+  handleContinueClick = () => {
+    let { uid } = auth.currentUser;
+    let userRef = firestore.collection("users").doc(uid);
+
+    let pinBoxToSubmit = { ...this.state.pinBox };
+    let pinBoxProperties = ["one", "two", "three", "four", "five"];
+
+    pinBoxProperties.forEach(pinSlot => {
+      if (pinBoxToSubmit[pinSlot]) {
+        let radius = pinBoxToSubmit[pinSlot][2].radius;
+        pinBoxToSubmit[pinSlot].pop();
+        pinBoxToSubmit[pinSlot].push(radius);
+      }
+    });
+
+    userRef.update({
+      tutorialPinBox: pinBoxToSubmit
+    });
+  };
+
   render() {
     return (
       <div>
@@ -83,7 +103,7 @@ class TutorialPageTwo extends Component {
         </div>
         {this.state.pinBox.one ? (
           <div style={{ position: "fixed", bottom: "5em", right: "5em" }}>
-            <CustomButton onClick={() => console.log("hi")}>
+            <CustomButton onClick={this.handleContinueClick}>
               Continue
             </CustomButton>
           </div>

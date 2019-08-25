@@ -38,7 +38,7 @@ export class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) => {
-    console.log("poop", props, marker, e);
+    console.log("props, marker, e", props, marker, e);
     !this.state.showingInfoWindow || marker.name != this.state.currentMarker
       ? this.setState({
           selectedPlace: props,
@@ -76,7 +76,7 @@ export class MapContainer extends Component {
         fillOpacity: 0.3,
         map,
         center: { lat: lat, lng: lng },
-        radius: 16093 //10 miles
+        radius: 16093.34 //10 miles
       });
 
       newMarkerLoc = [lat, lng, circle];
@@ -169,30 +169,26 @@ export class MapContainer extends Component {
   };
 
   handleSliderChange = event => {
-    console.log("hi", this.state.pinBox[this.state.focusedPin]);
-    this.state.pinBox[this.state.focusedPin][2].setRadius(
-      this.state.sliderValue * 1609.34
-    );
-    this.setState({ sliderValue: event.target.value });
+    this.setState({ sliderValue: event.target.value }, () => {
+      this.state.pinBox[this.state.focusedPin][2].setRadius(
+        this.state.sliderValue * 1609.34
+      );
+    });
   };
 
   onPinBoxEnter = (box, e) => {
-    if (this.state.pinBox[box]) console.log(this.state.pinBox[box][2]);
-    // this.state.pinBox[box][2].setRadius(
-    //   this.state.pinBox[box][2].radius + 1337
-    // );
+    if (this.state.pinBox[box])
+      if (this.state.pinBox[box][2])
+        this.state.pinBox[box][2].setOptions({ fillColor: "gold" });
   };
 
   onPinBoxLeave = (box, e) => {
     if (this.state.pinBox[box])
       if (this.state.pinBox[box][2])
-        this.state.pinBox[box][2].setRadius(
-          this.state.pinBox[box][2].radius - 1337
-        );
+        this.state.pinBox[box][2].setOptions({ fillColor: "#A3BCF9" });
   };
 
   onRemovePin = () => {
-    console.log("state", this.state);
     switch (this.state.focusedPin) {
       case "one":
         if (this.state.pinBox.one) this.state.pinBox.one[2].setMap(null);
@@ -284,10 +280,15 @@ export class MapContainer extends Component {
   };
 
   onPinBoxClick = box => {
-    if (this.state.pinBox[box])
+    if (this.state.pinBox[box]) {
+      let miles = Math.round(this.state.pinBox[box][2].radius / 1609.34);
       box !== this.state.focusedPin
-        ? this.setState({ focusedPin: box })
+        ? this.setState({
+            focusedPin: box,
+            sliderValue: miles
+          })
         : this.setState({ focusedPin: null });
+    }
   };
 
   onContinuePress = () => {
@@ -295,6 +296,7 @@ export class MapContainer extends Component {
   };
 
   render() {
+    const METERS_IN_MILE = 1609.34;
     let pinBoxes = Object.getOwnPropertyNames(this.state.pinBox);
 
     return (
@@ -320,7 +322,7 @@ export class MapContainer extends Component {
           <div className="pinBox">
             {pinBoxes.map((pinSlot, i) => {
               return (
-                <div style={{ height: "100%" }}>
+                <div key={i} style={{ height: "100%" }}>
                   <div
                     className="cursor-pointer"
                     key={i}
@@ -384,6 +386,7 @@ export class MapContainer extends Component {
                     min="5"
                     max="15"
                     step="1"
+                    value={this.state.sliderValue}
                     onChange={this.handleSliderChange}
                     style={{ marginRight: ".3em" }}
                   />
@@ -427,6 +430,7 @@ export class MapContainer extends Component {
                   lat: this.state.pinBox[pinSlot][0],
                   lng: this.state.pinBox[pinSlot][1]
                 }}
+                radius={this.sliderValue * METERS_IN_MILE}
               />
             ) : null;
           })}
