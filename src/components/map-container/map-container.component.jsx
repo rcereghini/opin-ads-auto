@@ -22,7 +22,7 @@ export class MapContainer extends Component {
       selectedPlace: {},
       markerLocations: [],
       focusedPin: null,
-      sliderValue: 15,
+      sliderValue: 10,
       pinBox: {
         one: null,
         two: null,
@@ -76,7 +76,7 @@ export class MapContainer extends Component {
         fillOpacity: 0.3,
         map,
         center: { lat: lat, lng: lng },
-        radius: 8047
+        radius: 16093 //10 miles
       });
 
       newMarkerLoc = [lat, lng, circle];
@@ -84,59 +84,85 @@ export class MapContainer extends Component {
 
     if (!this.state.pinBox.one) {
       drawCirclePushLocs();
-      this.setState({
-        pinBox: {
-          one: newMarkerLoc,
-          two: this.state.pinBox.two,
-          three: this.state.pinBox.three,
-          four: this.state.pinBox.four,
-          five: this.state.pinBox.five
+
+      this.setState(
+        {
+          pinBox: {
+            one: newMarkerLoc,
+            two: this.state.pinBox.two,
+            three: this.state.pinBox.three,
+            four: this.state.pinBox.four,
+            five: this.state.pinBox.five
+          }
+        },
+        () => {
+          this.props.pinBoxCallback(this.state.pinBox);
         }
-      });
+      );
     } else if (!this.state.pinBox.two) {
       drawCirclePushLocs();
-      this.setState({
-        pinBox: {
-          one: this.state.pinBox.one,
-          two: newMarkerLoc,
-          three: this.state.pinBox.three,
-          four: this.state.pinBox.four,
-          five: this.state.pinBox.five
+      this.setState(
+        {
+          pinBox: {
+            one: this.state.pinBox.one,
+            two: newMarkerLoc,
+            three: this.state.pinBox.three,
+            four: this.state.pinBox.four,
+            five: this.state.pinBox.five
+          }
+        },
+        () => {
+          this.props.pinBoxCallback(this.state.pinBox);
         }
-      });
+      );
     } else if (!this.state.pinBox.three) {
       drawCirclePushLocs();
-      this.setState({
-        pinBox: {
-          one: this.state.pinBox.one,
-          two: this.state.pinBox.two,
-          three: newMarkerLoc,
-          four: this.state.pinBox.four,
-          five: this.state.pinBox.five
+      this.setState(
+        {
+          pinBox: {
+            one: this.state.pinBox.one,
+            two: this.state.pinBox.two,
+            three: newMarkerLoc,
+            four: this.state.pinBox.four,
+            five: this.state.pinBox.five
+          }
+        },
+        () => {
+          this.props.pinBoxCallback(this.state.pinBox);
         }
-      });
+      );
     } else if (!this.state.pinBox.four) {
       drawCirclePushLocs();
-      this.setState({
-        pinBox: {
-          one: this.state.pinBox.one,
-          two: this.state.pinBox.two,
-          three: this.state.pinBox.three,
-          four: newMarkerLoc,
-          five: this.state.pinBox.five
+      this.setState(
+        {
+          pinBox: {
+            one: this.state.pinBox.one,
+            two: this.state.pinBox.two,
+            three: this.state.pinBox.three,
+            four: newMarkerLoc,
+            five: this.state.pinBox.five
+          }
+        },
+        () => {
+          this.props.pinBoxCallback(this.state.pinBox);
         }
-      });
+      );
     } else if (!this.state.pinBox.five) {
       drawCirclePushLocs();
-      this.setState({
-        pinBox: {
-          one: this.state.pinBox.one,
-          two: this.state.pinBox.two,
-          three: this.state.pinBox.three,
-          four: this.state.pinBox.four,
-          five: newMarkerLoc
+      this.setState(
+        {
+          pinBox: {
+            one: this.state.pinBox.one,
+            two: this.state.pinBox.two,
+            three: this.state.pinBox.three,
+            four: this.state.pinBox.four,
+            five: newMarkerLoc
+          }
+        },
+        () => {
+          this.props.pinBoxCallback(this.state.pinBox);
         }
-      });
+      );
     } else {
       alert("Limit of 5 pins exceeded. Please remove a pin first.");
     }
@@ -151,17 +177,18 @@ export class MapContainer extends Component {
   };
 
   onPinBoxEnter = (box, e) => {
-    if (this.state.pinBox[box])
-      this.state.pinBox[box][2].setRadius(
-        this.state.pinBox[box][2].radius + 1337
-      );
+    if (this.state.pinBox[box]) console.log(this.state.pinBox[box][2]);
+    // this.state.pinBox[box][2].setRadius(
+    //   this.state.pinBox[box][2].radius + 1337
+    // );
   };
 
   onPinBoxLeave = (box, e) => {
     if (this.state.pinBox[box])
-      this.state.pinBox[box][2].setRadius(
-        this.state.pinBox[box][2].radius - 1337
-      );
+      if (this.state.pinBox[box][2])
+        this.state.pinBox[box][2].setRadius(
+          this.state.pinBox[box][2].radius - 1337
+        );
   };
 
   onRemovePin = () => {
@@ -169,63 +196,88 @@ export class MapContainer extends Component {
     switch (this.state.focusedPin) {
       case "one":
         if (this.state.pinBox.one) this.state.pinBox.one[2].setMap(null);
-        this.setState({
-          pinBox: {
-            one: null,
-            two: this.state.pinBox.two,
-            three: this.state.pinBox.three,
-            four: this.state.pinBox.four,
-            five: this.state.pinBox.five
+        this.setState(
+          {
+            pinBox: {
+              one: null,
+              two: this.state.pinBox.two,
+              three: this.state.pinBox.three,
+              four: this.state.pinBox.four,
+              five: this.state.pinBox.five
+            }
+          },
+          () => {
+            this.props.pinBoxCallback(this.state.pinBox);
           }
-        });
+        );
         break;
       case "two":
         if (this.state.pinBox.two) this.state.pinBox.two[2].setMap(null);
-        this.setState({
-          pinBox: {
-            one: this.state.pinBox.one,
-            two: null,
-            three: this.state.pinBox.three,
-            four: this.state.pinBox.four,
-            five: this.state.pinBox.five
+        this.setState(
+          {
+            pinBox: {
+              one: this.state.pinBox.one,
+              two: null,
+              three: this.state.pinBox.three,
+              four: this.state.pinBox.four,
+              five: this.state.pinBox.five
+            }
+          },
+          () => {
+            this.props.pinBoxCallback(this.state.pinBox);
           }
-        });
+        );
         break;
       case "three":
         if (this.state.pinBox.three) this.state.pinBox.three[2].setMap(null);
-        this.setState({
-          pinBox: {
-            one: this.state.pinBox.one,
-            two: this.state.pinBox.two,
-            three: null,
-            four: this.state.pinBox.four,
-            five: this.state.pinBox.five
+        this.setState(
+          {
+            pinBox: {
+              one: this.state.pinBox.one,
+              two: this.state.pinBox.two,
+              three: null,
+              four: this.state.pinBox.four,
+              five: this.state.pinBox.five
+            }
+          },
+          () => {
+            this.props.pinBoxCallback(this.state.pinBox);
           }
-        });
+        );
         break;
       case "four":
         if (this.state.pinBox.four) this.state.pinBox.four[2].setMap(null);
-        this.setState({
-          pinBox: {
-            one: this.state.pinBox.one,
-            two: this.state.pinBox.two,
-            three: this.state.pinBox.three,
-            four: null,
-            five: this.state.pinBox.five
+        this.setState(
+          {
+            pinBox: {
+              one: this.state.pinBox.one,
+              two: this.state.pinBox.two,
+              three: this.state.pinBox.three,
+              four: null,
+              five: this.state.pinBox.five
+            }
+          },
+          () => {
+            this.props.pinBoxCallback(this.state.pinBox);
           }
-        });
+        );
         break;
       case "five":
         if (this.state.pinBox.five) this.state.pinBox.five[2].setMap(null);
-        this.setState({
-          pinBox: {
-            one: this.state.pinBox.one,
-            two: this.state.pinBox.two,
-            three: this.state.pinBox.three,
-            four: this.state.pinBox.four,
-            five: null
+        this.setState(
+          {
+            pinBox: {
+              one: this.state.pinBox.one,
+              two: this.state.pinBox.two,
+              three: this.state.pinBox.three,
+              four: this.state.pinBox.four,
+              five: null
+            }
+          },
+          () => {
+            this.props.pinBoxCallback(this.state.pinBox);
           }
-        });
+        );
         break;
     }
     this.setState({ focusedPin: null });
@@ -236,6 +288,10 @@ export class MapContainer extends Component {
       box !== this.state.focusedPin
         ? this.setState({ focusedPin: box })
         : this.setState({ focusedPin: null });
+  };
+
+  onContinuePress = () => {
+    console.log("continue");
   };
 
   render() {
