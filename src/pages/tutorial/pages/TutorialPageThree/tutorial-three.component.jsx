@@ -70,7 +70,7 @@ class TutorialPageThree extends Component {
         </div>
         {this.state.specificListing === "Y" ? (
           <div className="formDiv">
-            <h1>Please provide any of the following:</h1>
+            <h1>Please provide any of the following: </h1>
             <div>
               <p>Address:</p>
               <input></input>

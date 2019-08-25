@@ -22,7 +22,9 @@
 }
 
 .formDiv > div {
-  display: flex;
+  display: grid;
+  grid-template-columns: 100px 300px 1fr;
+  margin-left: 3em;
 }
 
 .formDiv > div > input {
