@@ -18,7 +18,7 @@ class TutorialPage extends Component {
 
   componentDidMount() {
     let componentScope = this;
-    console.log("hi");
+    // console.log("hi");
 
     let { uid } = auth.currentUser;
     let userRef = firestore.collection("users").doc(uid);

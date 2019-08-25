@@ -104,7 +104,11 @@ class TutorialPageThree extends Component {
         {this.state.specificListing === "N" ? (
           <div className="formDiv">
             <h1>Please describe the type of ad you'd like to run:</h1>
-            <textarea rows="15" cols="80"></textarea>
+            <textarea
+              style={{ marginLeft: "3em" }}
+              rows="15"
+              cols="80"
+            ></textarea>
           </div>
         ) : null}
         {this.state.specificListing ? (
