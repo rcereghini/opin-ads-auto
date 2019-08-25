@@ -81,7 +81,8 @@ class TutorialPageTwo extends Component {
     });
 
     userRef.update({
-      tutorialPinBox: pinBoxToSubmit
+      tutorialPinBox: pinBoxToSubmit,
+      tutorialCurrentPage: 3
     });
   };
 
